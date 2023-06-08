@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  app :
-    build: ./app/
+  api_client :
+    build: ./APIclient/
   db:
     build: ./database/
