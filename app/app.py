@@ -117,6 +117,7 @@ def pull_coin_data(coin_id, vs_currency, days):
     merged.drop_duplicates(subset='date_price', keep='first', inplace=True)
     # Since the API returns an empty volume record for the last one, we drop it
     merged.drop(index=merged.index[-1], axis=0, inplace=True)
+    merged['coin_id'] = coin_id
     return merged
 
 
