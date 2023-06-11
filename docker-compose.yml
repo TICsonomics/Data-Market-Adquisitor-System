@@ -1,6 +1,17 @@
 version: "3.8"
 services:
-  api_client :
+  api_client:
     build: ./APIclient/
+    depends_on:
+      - db
   db:
     build: ./database/
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    driver: local
+
