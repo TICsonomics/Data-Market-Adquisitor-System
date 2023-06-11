@@ -40,8 +40,8 @@ def get_ohcl(coin_id, vs_currency, days):
     historical_data = fetch_data_from_api(historical_url)
 
     historical_df = pd.DataFrame(historical_data)
-    historical_df.rename(columns={0: 'unix_timestamp', 1: 'open_price',
-                                  2: 'high_price', 3: 'low_price', 4: 'close_price'}, inplace=True)
+    historical_df.rename(columns={0: 'unix_timestamp', 1: 'open',
+                                  2: 'high', 3: 'low', 4: 'close'}, inplace=True)
 
     return historical_df
 
@@ -112,12 +112,12 @@ def pull_coin_data(coin_id, vs_currency, days):
     time.sleep(10)
     merged = ohcl.join(volume.set_index('date_price'), on='date_price')
     # Reorder the columns
-    merged = merged[['date_price', 'open_price', 'high_price', 'low_price', 'close_price', 'volume']]
+    merged = merged[['date_price', 'open', 'high', 'low', 'close', 'volume']]
     # Drop duplicated values in the date_price column
     merged.drop_duplicates(subset='date_price', keep='first', inplace=True)
     # Since the API returns an empty volume record for the last one, we drop it
     merged.drop(index=merged.index[-1], axis=0, inplace=True)
-    merged['coin_id'] = coin_id
+    #merged['coin_id'] = coin_id
     return merged
 
 
